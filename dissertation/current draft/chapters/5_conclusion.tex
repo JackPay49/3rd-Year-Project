@@ -1,0 +1,46 @@
+\chapter{Conclusion}
+\label{cha:conclusion}
+\section{Summary of Achievements}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|} 
+ \hline
+ Experiment & Summary &  Val Accuracy & Val Loss & \acrshort{wer} \\ [0.2ex] 
+ \hline
+ 4.2 & Visual-based & \accuracyfourtwo & \lossfourtwo & \werfourtwo \\
+ 5.4 & Landmark-based \acrshort{bilstm} & \accuracyfivefour & \lossfivefour & \werfivefour \\
+ 8 & Landmark, Visual \Gls{transformer} & \accuracyeight & \losseight & \wereight \\
+ \hline
+  9.1 & Letter-based with \acrshort{ctc} loss & \accuracynineone & \lossnineone & \wernineone \\
+ 9.2 & Phoneme-based with \acrshort{ctc} loss & \accuracyninetwo & \lossninetwo & \werninetwo \\
+ 9.3 & Viseme-based with \acrshort{ctc} loss & \accuracyninethree & \lossninethree & \werninethree \\
+ \hline
+\end{tabular}
+\caption[The final models presented for lip reading]{The final models presented for lip reading. This shows the testing accuracy, loss and \acrshort{wer} achieved for the best lip reading models trained within this research. There is slight variation within the design, architecture and training of these models, outlined within the relevant sections above.}
+\label{table: final models}
+\end{table}
+In this research, we aimed to compare different methods of using \acrlong{ml} and \acrlong{cv} for visual-only lip reading.\\
+We started by developing a data generation pipeline to preprocess data from the BBC into a format that could be trained upon. The \gls{lrw} dataset was selected due to its reliability and because it suited the independent word recognition task studied here.\\
+Various architectures were trained, compared, and modified to create the best lip reading solution. First, simple architectures such as \acrfull{cnn} and \acrfull{bilstm} networks were investigated, but later more complex \gls{transformer} architectures were used to great success. The \acrfull{lr} was significantly varied and exploited to create the best possible models. From this research, it was discovered that \gls{transformer} architectures and \acrshort{bilstm} networks performed the best for lip reading. It was also found that a combination of landmark and visual inputs can improve lip reading performance.\\
+Finally, \acrfull{ctc} loss was used to train lip reading \acrshort{ann}s capable of processing each independent frame, distinguishing each sub-word and predicting the letter, \gls{phoneme} or \gls{viseme} uttered. These models were compared to find the best solution for frame-to-frame lip reading which was, as hypothesised, \gls{viseme}-based prediction.\\
+Overall, seventeen experiments were conducted. A summary of the best models developed for lip reading is displayed in Table~\ref{table: final models}, displaying up to 97\% accuracy, less than 10\% loss and a \acrfull{wer} of just 13.7\%. A summary of all of the results of these experiments is shown in Table~\ref{table: all models}.\\
+Overall, all of the objectives established in Section~\ref{sec:Aims and Objectives} were achieved. An efficient, configurable and automatic data generation pipeline was developed, making it easier to extend this work in the future. Various \acrshort{ann} architectures were designed, trained and objectively compared to find the best solution for lip reading. A \acrfull{gui} was also developed to showcase the different models and alter the processing of their outputs. Additionally, the \acrshort{gui}'s extensional aim was achieved by incorporating model fine-tuning, which improved lip reading performance for specific users.
+\section{Critical Reflection}
+As with any project, it is crucial to reflect upon its inherent strengths and weaknesses. This reflection aims to highlight potential areas of improvement whilst implementing lip reading using \acrfull{ml}.\\
+One major limitation of this work was the size of the data involved. Much of the training and experimentation was limited to a small subset of words. This decision was taken to shorten the potential long training times, reduce the required data storage and avoid some difficult issues such as with high-dimensional classification. The small word set allowed further focus on the task at hand. Whilst the findings from this experiment were conducted with rigorous adherence to the scientific method, and with a large amount of data, further words could have been incorporated to offer better reliability, additional comparison of model performance and create a more general model suitable for wider application. Future improvements could extend the vocabulary, trying a larger set of words and potentially comparing sub-word and word-level classification. This work could take the achievements found with the \gls{transformer} architecture and \acrshort{ctc} loss, extending them to a wider dataset.\\
+Another limitation of this work was the intrinsic nature of model evaluation. Testing and evaluation were primarily completed using data from the \gls{lrw} dataset, with some testing via the \acrshort{gui}. Extrinsic evaluation, on completely unseen and different data, would give a better understanding of the generalisability, application and true performance of the lip reading models. All data within the \gls{lrw} dataset is similar, making the analysis less reliable. Future work could validate these models against external data from a setting that is completely unseen. This would give additional information as to the usefulness of models and provide further insight as to methods for further improving model performance.\\
+Finally, due to timing constraints, and it not being the true focus of the project, the \acrshort{gui} was not as usable or aesthetic as it could have been. The aims of this project were primarily around lip reading research and model comparison, rather than developing an efficient application. Further time could extend this \acrshort{gui} into a more usable application, with user evaluation even being carried out to maximise the user experience of a formal lip reading application.
+\section{Future Work}
+The research conducted in this study offers numerous avenues for potential applications. This section will explain some potential extensions or uses of the work.\\
+Firstly, and the most obvious, would be to extend the experiments conducted within this research. Models could be trained to recognise wider word sets, different model architectures could be trialled or further parameter settings could be assessed. Continually, new architectures are found that perform better in specific situations. Creating different model architectures, training them for lip reading and comparing their performance would help to extend the research further. The experiments above have various parameters that could be investigated in more depth.\\
+Some suggestions for variations on experiments include:
+\begin{itemize}
+    \item During data preprocessing, utilise a larger set of MediaPipe landmarks than the forty selected for this research. An entirely different facial landmark system could be investigated, such as the solution provided by DLib
+    \item During data preprocessing, crop a larger region of the mouth or face
+    \item Compare different visual feature extractors and their performance during training
+    \item Expand the word set for training
+    \item Expand testing to an unseen task or different dataset
+    \item Train a specific visual feature extractor for human faces, rather than employing a pretrained extractor
+\end{itemize}
+Next, whilst this approach was research-centered, further work could use the findings here to develop an application built around lip reading. Hardware could specifically be made to help people with hearing loss on the go. For example, a pair of glasses could be made to employ lip reading in real-time. Uni-directional microphones could be used to focus on a single person and collect audio to be paired with visual features. This technology could improve closed caption generation, could generate audio in a visual-only medium or improve security. Many security cameras are outdated, giving no audio, so such a model could help law enforcement to listen to criminal activity from such cameras.\\
+In summary, there are various ways this research could be extended. Lip reading is crucial to everyday communication and \acrlong{ml} presents a new way forwards that could greatly improve audio processing, give insight into teaching lip reading and help people with \acrfull{dhl}.

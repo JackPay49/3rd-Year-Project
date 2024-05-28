@@ -1,0 +1,5 @@
+**/__pycache__/
+classes/test_data/
+colabs/.ipynb_checkpoints/
+colabs/working_colabs/.ipynb_checkpoints/
+classes/graphical/.model.png

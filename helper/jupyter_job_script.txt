@@ -1,0 +1,20 @@
+#!/bin/bash --login
+#$ -cwd
+
+#$ -l nvidia_a100=1
+module load apps/binapps/jupyter-notebook/6.0.0
+
+source activate myenv
+conda install -y -c conda-forge cudatoolkit=11.8.0
+pip install --isolated nvidia-cudnn-cu11==8.6.0.163 tensorflow==2.13.*
+conda install -c nvidia cuda-nvcc --yes
+
+CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib:$CUDNN_PATH/lib
+export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CONDA_PREFIX/lib
+
+python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+
+jupyter nbconvert --execute --to notebook --ExecutePreprocessor.timeout=-1 --inplace proj_code/colabs/Train\ Video\ Based.ipynb
+
+source deactivate

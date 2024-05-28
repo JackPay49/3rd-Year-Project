@@ -1,0 +1,362 @@
+\documentclass[12pt,BSc,wordcount,oneside]{muthesis}
+% \documentclass[12pt,BSc,wordcount,twoside]{muthesis}
+% The regulations say that 12pt should be used
+% Change the MSc option to MPhil, MRes or PhD if appropriate
+% Add 'anon' to the above options to replace your name with your student ID
+
+% --------------------------PACKAGES-----------------------------------
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url} % typeset URL's reasonably
+\usepackage{listings}
+\usepackage{pslatex} % Use Postscript fonts
+\usepackage{hyperref}
+\usepackage[acronym]{glossaries}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{subfig}
+\usepackage{chngcntr}
+\usepackage{flafter}
+
+% --------------------------FORMAT-----------------------------------
+% Uncomment the next line if you want subsubsections to be numbered
+\setcounter{secnumdepth}{3}
+% Uncomment the next line if you want subsubsections to be appear in
+% the table of contents
+\setcounter{tocdepth}{3}
+
+% Uncomment the following lines if you want to include the date as a
+% header in draft versions
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{}  % left head
+%\chead{Draft: \today} % centre head
+%\lfoot{}
+%\cfoot{\thepage}
+%\rfoot{}
+
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=blue,
+    linkcolor=black,
+    urlcolor=blue
+}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+% --------------------------VARIABLES----------------------------------
+\def\SUPERVISOR{Dr Terence Morley}
+\def\AUTHOR{Jack Pay}
+\def\STUDENTID{10820869}
+\def\UNI{University of Manchester}
+\def\DEPARTMENT{Department of Computer Science}
+
+% RESULTS
+%   Note these are structured as "\metricexperimentsubexperiment
+    % experiment 1
+\def\accuracyone{0.8394}
+\def\lossone{1.7144}
+\def\werone{0.1606}
+
+    % experiment 2
+\def\accuracytwo{0.8895}
+\def\losstwo{0.4798}
+\def\wertwo{0.1105}
+
+    % experiment 3
+\def\accuracythree{0.8998}
+\def\lossthree{1.0172}
+\def\werthree{0.1002}
+
+    % experiment 4
+\def\accuracyfourone{0.8838}
+\def\accuracyfourtwo{0.9670}
+\def\accuracyfourthree{0.7938}
+\def\lossfourone{0.4490}
+\def\lossfourtwo{0.3953}
+\def\lossfourthree{1.3048}
+\def\werfourone{0.1162}
+\def\werfourtwo{0.0330}
+\def\werfourthree{0.2062}
+
+    % experiment 5  
+\def\accuracyfiveone{0.8189}
+\def\accuracyfivetwo{0.9567}
+\def\accuracyfivethree{0.8656}
+\def\accuracyfivefour{0.9704}
+\def\accuracyfivefive{0.9305}
+\def\lossfiveone{0.5370}
+\def\lossfivetwo{0.1374}
+\def\lossfivethree{0.3540}
+\def\lossfivefour{0.0949}
+\def\lossfivefive{0.2111}
+\def\werfiveone{0.1811}
+\def\werfivetwo{0.0433}
+\def\werfivethree{0.1344}
+\def\werfivefour{0.0296}
+\def\werfivefive{0.0695}
+
+    % experiment 6
+\def\accuracysix{0.8807}
+\def\losssix{0.4006}
+\def\wersix{0.0490}
+
+    % experiment 7
+\def\accuracyseven{0.8724}
+\def\lossseven{0.3437}
+\def\werseven{0.1276}
+
+    % experiment 8
+\def\accuracyeight{0.9203}
+\def\losseight{0.2730}
+\def\wereight{0.0797}
+
+    % experiment 9
+\def\accuracynineone{0.9076}
+\def\accuracyninetwo{0.7412}
+\def\accuracyninethree{0.8068}
+\def\lossnineone{2.6221}
+\def\lossninetwo{1.9542}
+\def\lossninethree{1.7748}
+\def\wernineone{0.2187}
+\def\werninetwo{0.2107}
+\def\werninethree{0.1765}
+% --------------------------ABBREVIATIONS------------------------------
+\makeglossaries
+
+\newglossaryentry{lrw}
+{
+        name=LRW,
+        description={Lip Reading in the Wild (LRW) is the first large-scale dataset for English lip reading~\cite{Lip-Reading-In-The-Wild}. It is an annotated dataset including 500 English words, each being uttered 1000 times}
+}
+\newglossaryentry{lrs2}
+{
+        name=LRS2,
+        description={Lip Reading Sentences in the Wild (LRS2) is a large-scale dataset for English lip reading~\cite{LRS2}. It was collected as a follow-up to the popular \gls{lrw} and intended to instead understand full sentences}
+}
+\newglossaryentry{lrs3}
+{
+        name=LRS3-TED,
+        description={LRS3-TED is one of the largest datasets for English lip reading~\cite{LRS3}. It was collected from a set of TED talks to avoid restrictions associated with the data and to better compare different lip reading systems}
+}
+\newglossaryentry{glips}
+{
+        name=GLips,
+        description={GLips is a dataset for German lip reading~\cite{GLips}. It is a collection of 250,000 videos from speakers in the Hessian Parliament}
+}
+\newglossaryentry{lrw1000}
+{
+        name=LRW-1000,
+        description={LRW-1000 is a dataset for Chinese Mandarin lip reading~\cite{LRW-1000}. It is a collection of 718,018 videos}
+}
+\newglossaryentry{speech_disfluency}
+{
+        name=speech disfluencies,
+        description={Speech that doesn't flow well and may contain repeated words, self-corrections and filled pauses~\cite{disfluency}}
+}
+\newglossaryentry{viseme}
+{
+        name=viseme,
+        description={The visual counterparts to phonemes; the speech sounds that form similar lip shapes}
+}
+\newglossaryentry{phoneme}
+{
+        name=phoneme,
+        description={The fundamental and distinct sounds that are made during speech, used to distinguish between different words}
+}
+\newglossaryentry{activation_function}
+{
+        name=activation function,
+        description={An activation function is a mathematical function used to decide the output of a neuron within an \acrfull{ann}}
+}
+\newglossaryentry{one_hot_encoding}
+{
+        name=one hot encoding,
+        description={A technique for encoding class labels in \acrshort{ml}, involving assigning N-dimensional vectors to samples, where N represents the number of classes. Within these vectors, a 0 is stored at position $i$ if the sample does not belong to the class $i$, and 1 if it does}
+}
+\newglossaryentry{overfitting}
+{
+        name=overfitting,
+        description={Overfitting refers to the problem of an \acrshort{ann} not generalising to data. Models that have overfit perform well on the training data but not on external, unseen data~\cite{what_is_overfitting}}
+}
+\newglossaryentry{underfitting}
+{
+        name=underfitting,
+        description={Underfitting refers to the problem of an \acrshort{ann} not generalising to data at all. The model is unable to capture the structure of the training, testing or validation datasets}
+}
+\newglossaryentry{feature_extraction}
+{
+        name=feature extraction,
+        description={Feature extraction refers to the process of identifying and extracting intrinsic features from data for various other processes, from classification to clustering~\cite{Feature-extraction-methods:-a-review}. There are different methods for feature extraction, varying based on the task required. Feature extraction is the first step among many computer vision and \acrshort{nlp} processes, putting data into a format so that it can be easily processed}
+}
+\newglossaryentry{transformer}
+{
+        name=Transformer,
+        description={The Transformer architecture is another \acrshort{ann} architecture. It is made unique by its use of multi-head attention blocks, positional encoding and \emph{Add\&Norm} layers~\cite{original_transformer}. The Transformer architecture has been used to great success for various visual~\cite{Transformers_in_vision:_A_survey, OG_vit, A_survey_of_visual_Transformers} and \acrshort{nlp} applications}
+}
+\newglossaryentry{multi-class}
+{
+        name=multi-class classification,
+        description={Classification of data samples into multiple classes. Can be single-label or multi-label}
+}
+\newglossaryentry{multi-label}
+{
+        name=multi-label classification,
+        description={Classification of data samples into a set of multiple classes. Single samples can be classified into possibly several classes}
+}
+\newglossaryentry{single-label}
+{
+        name=single-label classification,
+        description={Classification of data samples into a set of multiple classes. Single samples can be classified into only one class}
+}
+\newglossaryentry{dropout}
+{
+        name=dropout,
+        description={A method to reduce overfitting~\cite{dropout_for_overfitting}. Randomly, inputs to nodes are set to 0, excluding certain nodes from training runs. Keras gives an implementation of Dropout layers\footnote{\url{https://keras.io/api/layers/regularization_layers/dropout/}}}
+}
+\newglossaryentry{data_augmentation}
+{
+        name=data augmentation,
+        description={Different techniques for enhancing and increasing the size of a dataset~\cite{og_data_augmentation}. There are various methods such as geometric transformations, cropping and data flipping}
+}
+\newglossaryentry{fine-tuning}
+{
+        name=fine-tuning,
+        description={A method of transfer learning where an already trained, or pre-trained, model is trained a second time on a different task. The benefit being the transferal of knowledge from the pre-trained model to a new model for a new task}
+}
+\newglossaryentry{corpora}
+{
+        name=corpora,
+        description={Plural of corpus. A text corpus is a text dataset}
+}
+
+\newacronym{dhl}{DHL}{Disabling Hearing Loss}
+\newacronym{lstm}{LSTM}{Long Short Term Memory}
+\newacronym{cv}{CV}{Computer Vision}
+\newacronym{bilstm}{Bi-LSTM}{Bidirectional Long Short Term Memory}
+\newacronym{ml}{ML}{Machine Learning}
+\newacronym{who}{WHO}{World Health Organisation}
+\newacronym{gui}{GUI}{Graphical User Interface}
+\newacronym{cnn}{CNN}{Convolutional Neural Network}
+\newacronym{cnns}{CNNs}{Convolutional Neural Networks}
+\newacronym{rnn}{RNN}{Recurrent Neural Network}
+\newacronym{ann}{ANN}{Artificial Neural Network}
+\newacronym{anns}{ANNs}{Artificial Neural Networks}
+\newacronym{sgd}{SGD}{Stochastic Gradient Descent}
+\newacronym{ai}{AI}{Artificial Intelligence}
+\newacronym{nlp}{NLP}{Natural Language Processing}
+\newacronym{p2v}{P2V}{\Gls{phoneme} to \Gls{viseme}}
+\newacronym{dl}{DL}{Deep Learning}
+\newacronym{gru}{GRU}{Gated Recurrent Unit}
+\newacronym{bigru}{Bi-GRU}{Bidirectional Gated Recurrent Unit}
+\newacronym{sru}{SRU}{Simple Recurrent Unit}
+\newacronym{lr}{LR}{Learning Rate}
+\newacronym{ctc}{CTC}{Connectionist Temporal Classification}
+\newacronym{asr}{ASR}{Automatic Speech Recognition}
+\newacronym{wer}{WER}{Word Error Rate}
+\newacronym{cer}{CER}{Character Error Rate}
+\newacronym{csf}{CSF}{Computational Shared Facility}
+\newacronym{uom}{UoM}{University of Manchester}
+\newacronym{srs}{SRS}{Simple Random Sampling}
+\newacronym{gpu}{GPU}{Graphical Processing Unit}
+% --------------------------DOCUMENT-----------------------------------
+\begin{document}
+% Uncomment the following lines to leave out list of figures, tables
+% and copyright until final printing
+% \figurespagefalse
+% \tablespagefalse
+% \copyrightfalse
+
+\title{Computer Vision for Lip Reading}
+\author{\AUTHOR}
+\stuid{\STUDENTID}
+\principaladviser{\SUPERVISOR}
+
+\beforeabstract
+\printglossary[type=\acronymtype, title=Abbreviations]
+\printglossary
+\lstlistoflistings
+
+
+\prefacesection{Abstract}
+\input{chapters/0_abstract}
+
+\afterabstract
+
+\prefacesection{Acknowledgements}
+Firstly, I would like to thank my supervisor, \SUPERVISOR, without whom I would not have been able to complete this project. Thank you for all of your guidance and support throughout this project.\\\\
+I want to also extend my gratitude to the \UNI\ and the \DEPARTMENT. The past three years have been challenging, thrilling and unforgettable. I have learnt so much. Thank you.\\\\
+I want to thank the BBC for their generous provision of valuable data that was key to developing this research.\\\\
+% Furthermore, I want to thank Nimesh Patel\footnote{\url{https://www.linkedin.com/in/nimesh-patel-62226aa1/}} who taught me so much. Without his training and tutoring I would have been lost throughout this project.\\\\
+% Furthermore, I want to thank my friends for their help throughout this project, whether that was trying out my occasional model or proof-reading my work. I'm sure you are all tired of hearing about \gls{viseme}s by now, but thank you.\\\\
+Finally, thank you to my family for their continued support throughout my time at University. Thank you for your wise advice, a place to stay whenever it was needed and for always being there. I couldn't have done this without you.  
+
+\prefacesection{Data Declaration}
+For non-commercial individual research and private study use only. BBC content included courtesy of the BBC
+
+\afterpreface
+
+% TOTAL: 14,167
+%   Min: 10,000
+%   Max: 15,000
+%   Word count includes: Word count for each chapter, not the bibliograph, appendices or abstract
+\include{chapters/1_introduction}           %Chapter 1
+%   Intro: ~ 7.5%: 1125 words
+        % Current: 1197 words
+\include{chapters/2_background}             %Chapter 2
+%   Background: ~ 30%: 4500 words
+        % Current: 3919 words
+\include{chapters/3_design&implementation} %Chapter 3
+%   Design: ~ 30%: 4500 words
+        % Current: 5246 words
+\include{chapters/4_results&experimentation} %Chapter 4
+%   Results: ~ 27.5%: 4125 words
+        % Current: 2767 words
+\include{chapters/5_conclusion}             %Chapter 5
+%   Conclusion: ~ 5%: 750 words
+        % Current: 1038 words
+
+  \bibliography{refs}    % this causes the references to be listed
+
+\bibliographystyle{abbrv}
+%% the bibliography style determines the format  in which both citations and references are printed,
+%% other possible values are plain and abbrv
+%%
+%% If you want more control of the format of your citations you might want to take a look at
+%% natbib.sty, which should be part of any standard LaTeX installation
+%%
+%% University regulations simply require that your citation style be consistent, so see what style
+%% your supervisor recommends.
+
+% Appendices start here
+
+\appendix
+\include{chapters/6_appendix_A}
+
+\end{document}

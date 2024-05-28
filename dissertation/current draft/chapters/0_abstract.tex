@@ -1,0 +1,13 @@
+%\abstracttitle
+% Single spacing can be turned on for the abstract
+%
+{\singlespacing
+Lip reading is an often ignored but crucial aspect of communication. It is essential for deaf people but is also used to a degree by those without hearing impairments. 
+This project aims to research different methods for automating lip reading using Machine Learning.\\ 
+We utilised \gls{lrw}, a popular lipreading dataset provided by the BBC. With this, we generated useful data using MediaPipe and Python, and conducted a set of experiments to compare different model architectures trained for lip reading.\\
+We assessed the performance of basic \acrfull{cnn}, \acrfull{lstm} and \acrfull{bilstm} architectures, tuning different hyperparameters in an attempt to make the best model possible. We trained and evaluated \gls{transformer} architectures and utilised cross-attention to compare features from two separate modalities: both landmarks and image data. In an attempt to reduce the effects of \gls{overfitting}, we also assessed data augmentation and dropout.\\
+In the final stages of experimentation, we also trialled different loss metrics, primarily \acrfull{ctc} loss, and changed the classes utilised for training. As opposed to the words being uttered, we tested the performance when videos are classified to the letters, \gls{phoneme}s and \gls{viseme}s uttered.\\
+Overall, seventeen experiments were conducted. A summary of the best models developed for lip reading is displayed in Table~\ref{table: final models}, displaying up to 97\% accuracy, less than 10\% loss, and a \acrfull{wer} of just 13.7\%. A summary of all of the results of these experiments is shown in Table~\ref{table: all models}. A \acrshort{bilstm} model, that utilised lip landmarks as input, proved to be the best architecture. We also discovered that utilising \gls{viseme}s, rather than letters or \gls{phoneme}s produced the best loss and \acrshort{wer} for lip reading.\\
+Finally, once we had assessed enough different architectures, a \acrfull{gui} was then developed. We designed the application to have two modes: inference and \gls{fine-tuning}. Inference mode was provided to run pretrained models in real-time or input videos. \Gls{fine-tuning} allowed recording of new data and \gls{fine-tuning} existing models that could then be saved or loaded in as necessary. The \acrshort{gui} was developed to enable thorough customisation over inference, such as a prediction threshold, and configuration of \gls{fine-tuning}, for example the number of epochs and \acrfull{lr}.
+}
+
